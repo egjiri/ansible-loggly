@@ -1,2 +1,6 @@
 ---
-# defaults file for egjiri.loggly
+loggly:
+  # id: ...
+  # customer_token: ...
+  tags: [] # Default Tags for all log sources
+  sources: [] # Specifies sources to configure. eg. [nginx]

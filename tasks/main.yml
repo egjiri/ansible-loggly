@@ -1,2 +1,24 @@
 ---
-# tasks file for egjiri.loggly
+- name: start and enable rsyslog
+  service:
+    name: rsyslog
+    state: started
+    enabled: true
+  become: true
+
+- name: configure loggly syslog
+  template:
+    dest: /etc/rsyslog.d/22-loggly.conf
+    src: 22-loggly.conf
+  become: true
+  notify:
+    - restart rsyslog
+
+- name: configure loggly {{item}} source
+  template:
+    dest: /etc/rsyslog.d/21-{{item}}-loggly.conf
+    src: 21-{{item}}-loggly.conf
+  become: true
+  with_items: "{{loggly.sources}}"
+  notify:
+    - restart rsyslog

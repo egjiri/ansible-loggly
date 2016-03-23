@@ -1,2 +1,6 @@
 ---
-# handlers file for egjiri.loggly
+- name: restart rsyslog
+  service:
+    name: rsyslog
+    state: restarted
+  become: true
